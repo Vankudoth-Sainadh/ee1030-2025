@@ -1,0 +1,49 @@
+# triangle_plot.py
+# Plot A(4,7), B(p,3), C(7,3) with p=4 (right angle at B)
+
+import math
+import matplotlib.pyplot as plt
+
+# Points
+A = (4, 7)
+p = 4
+B = (p, 3)
+C = (7, 3)
+
+# Unpack for plotting
+xs = [A[0], B[0], C[0], A[0]]
+ys = [A[1], B[1], C[1], A[1]]
+
+# Draw triangle
+plt.figure(figsize=(5, 5))
+plt.plot(xs, ys, marker='o')
+
+# Labels
+plt.text(A[0]+0.1, A[1]+0.1, "A(4,7)")
+plt.text(B[0]+0.1, B[1]-0.4, f"B({p},3)")
+plt.text(C[0]+0.1, C[1]-0.4, "C(7,3)")
+
+# Indicate right angle at B by plotting little square
+# Vector BA and BC
+BA = (A[0]-B[0], A[1]-B[1])
+BC = (C[0]-B[0], C[1]-B[1])
+# Small step along each to draw the corner
+scale = 0.4
+p1 = (B[0] + scale * (BA[0]/math.hypot(*BA)), B[1] + scale * (BA[1]/math.hypot(*BA)))
+p2 = (B[0] + scale * (BC[0]/math.hypot(*BC)), B[1] + scale * (BC[1]/math.hypot(*BC)))
+corner = (p1[0] + (p2[0]-B[0]), p1[1] + (p2[1]-B[1]))
+plt.plot([p1[0], corner[0], p2[0]], [p1[1], corner[1], p2[1]])
+
+plt.gca().set_aspect('equal', adjustable='box')
+plt.grid(True)
+plt.title("Right Triangle at B")
+
+# Always save to a file so you have output even without a display
+plt.savefig("triangle.png", dpi=150)
+
+# Try to show (works when a GUI/display is available)
+try:
+    plt.show()
+except Exception:
+    pass
+
