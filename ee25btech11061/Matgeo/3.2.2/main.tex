@@ -1,0 +1,102 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a4paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern}
+\usepackage{tfrupee}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\def\inputGnumericTable{}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{ifthen}
+\usepackage{lscape}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{3.2.2}
+\author{EE25BTECH11061 - V.Sainadh}
+
+\maketitle
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt}
+
+\textbf{Question:}\\
+Draw a triangle $\triangle ABC$ in which $AB=5\,\text{cm}$, $BC=6\,\text{cm}$ and $\angle ABC=60^\circ$.\\[2pt]
+
+\textbf{Solution:}\\
+$\rightarrow$ Let
+\begin{align}
+a &= \|\vec{C}-\vec{B}\| = 6\,\text{cm} \tag{1}\\
+b &= \|\vec{A}-\vec{C}\| \ \ (\text{to be found}) \tag{2}\\
+c &= \|\vec{B}-\vec{A}\| = 5\,\text{cm} \tag{3}
+\end{align}
+
+$\rightarrow$ By cosine law in $\triangle ABC$ at $\vec{B}$,
+\begin{align}
+b^{2} &= a^{2}+c^{2}-2ac\cos B \tag{4}\\
+      &= 6^{2}+5^{2}-2\cdot6\cdot5\cdot\cos60^\circ \tag{5}\\
+      &= 36+25-60\cdot\frac12 \tag{6}\\
+      &= 31 \ \Rightarrow\ b=\sqrt{31}\approx 5.57\,\text{cm} \tag{7}
+\end{align}
+
+$\rightarrow$ Choose coordinates (placing $B$ at the origin and $BC$ on the $x$-axis):
+\begin{align}
+\vec{B} &= \myvec{0\\0} \tag{8}\\
+\vec{C} &= \myvec{6\\0} \tag{9}\\
+\vec{A} &= c\,\myvec{\cos B\\ \sin B}
+       = \myvec{\tfrac{5}{2}\\ \tfrac{5\sqrt{3}}{2}}
+       \approx \myvec{2.5\\4.33} \tag{10}
+\end{align}
+
+$\rightarrow$ Therefore, the vertices of $\triangle ABC$ are:
+\begin{align}
+\vec{A} &= \myvec{2.5\\4.33}, \qquad
+\vec{B} = \myvec{0\\0}, \qquad
+\vec{C} = \myvec{6\\0} \tag{11}
+\end{align}
+\enlargethispage{2\baselineskip}   
+
+\begin{samepage}                  
+
+
+\begin{center}
+  \includegraphics[width=0.60\linewidth]{figs/Figure_1.png}   
+  \captionof{figure}{Plot of $\triangle ABC$}
+  \label{Plot_1}
+\end{center}
+\end{samepage}
+
+\end{document}

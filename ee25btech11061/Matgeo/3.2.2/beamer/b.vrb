@@ -1,0 +1,16 @@
+\frametitle{callc.py}
+\begin{lstlisting}
+     print("Example (AB=5, BC=6, ∠B=60°)")
+    print(f"A = ({Ax.value:.2f}, {Ay.value:.2f})")
+    print(f"B = ({Bx.value:.2f}, {By.value:.2f})")
+    print(f"C = ({Cx.value:.2f}, {Cy.value:.2f})")
+    print(f"AC = sqrt(31) ≈ {b.value:.2f}")
+
+def run_general(AB=5.0, BC=6.0, angleB_deg=60.0):
+    Ax= c_double(); Ay= c_double()
+    Bx= c_double(); By= c_double()
+    Cx= c_double(); Cy= c_double()
+    b = c_double()
+
+    lib.triangle_abc(AB, BC, angleB_deg,
+\end{lstlisting}

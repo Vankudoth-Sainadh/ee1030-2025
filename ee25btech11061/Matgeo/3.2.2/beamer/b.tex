@@ -1,0 +1,292 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+\title 
+{3.2.2}
+\date{October 1,2025}
+\author 
+{V.Sainadh-EE25BTECH11061}
+\frame{\titlepage}
+\begin{frame}{Question}
+Draw a triangle $\triangle ABC$ in which $AB=5\,\text{cm}$, $BC=6\,\text{cm}$ and $\angle ABC=60^\circ$.\\[2pt]
+\end{frame}
+\begin{frame}{Solution}
+$\rightarrow$ Let
+\begin{align}
+a &= \|\vec{C}-\vec{B}\| = 6\,\text{cm} \tag{1}\\
+b &= \|\vec{A}-\vec{C}\| \ \ (\text{to be found}) \tag{2}\\
+c &= \|\vec{B}-\vec{A}\| = 5\,\text{cm} \tag{3}
+\end{align}
+
+$\rightarrow$ By cosine law in $\triangle ABC$ at $\vec{B}$,
+\begin{align}
+b^{2} &= a^{2}+c^{2}-2ac\cos B \tag{4}\\
+      &= 6^{2}+5^{2}-2\cdot6\cdot5\cdot\cos60^\circ \tag{5}\\
+      &= 36+25-60\cdot\frac12 \tag{6}\\
+      &= 31 \ \Rightarrow\ b=\sqrt{31}\approx 5.57\,\text{cm} \tag{7}
+\end{align}
+  \end{frame}
+  \begin{frame}{Solution}
+  $\rightarrow$ Choose coordinates (placing $B$ at the origin and $BC$ on the $x$-axis):
+\begin{align}
+\vec{B} &= \myvec{0\\0} \tag{8}\\
+\vec{C} &= \myvec{6\\0} \tag{9}\\
+\vec{A} &= c\,\myvec{\cos B\\ \sin B}
+       = \myvec{\tfrac{5}{2}\\ \tfrac{5\sqrt{3}}{2}}
+       \approx \myvec{2.5\\4.33} \tag{10}
+\end{align}
+
+$\rightarrow$ Therefore, the vertices of $\triangle ABC$ are:
+\begin{align}
+\vec{A} &= \myvec{2.5\\4.33}, \qquad
+\vec{B} = \myvec{0\\0}, \qquad
+\vec{C} = \myvec{6\\0} \tag{11}
+\end{align}
+\enlargethispage{2\baselineskip}   
+
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{figure}[h!]
+   \centering
+   \includegraphics[width=0.8\columnwidth]{figs/Figure_1.png}
+   \caption{Plot of the vector $\vec{r}$}
+   \label{Plot_1}
+\end{figure}
+
+\end{frame}
+
+ 
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}
+#include <math.h>
+int triangle_abc(double AB, double BC, double angleB_deg,
+                 double* Ax, double* Ay,
+                 double* Bx, double* By,
+                 double* Cx, double* Cy,
+                 double* b_out)
+{
+    const double pi = 3.14159265358979323846;
+    double B = angleB_deg * (pi/180.0);
+
+    // Place B at origin and C on x-axis
+    *Bx = 0.0; *By = 0.0;
+    *Cx = BC;  *Cy = 0.0;
+
+    // From B, place A using polar (AB, angle B)
+    *Ax = AB * cos(B);
+    *Ay = AB * sin(B);
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+    
+    // b = AC
+    double dx = *Ax - *Cx, dy = *Ay - *Cy;
+    *b_out = sqrt(dx*dx + dy*dy);
+
+    return 0;
+}
+int triangle_example(double* Ax, double* Ay,
+                     double* Bx, double* By,
+                     double* Cx, double* Cy,
+                     double* b_out)
+{
+    return triangle_abc(5.0, 6.0, 60.0, Ax, Ay, Bx, By, Cx, Cy, b_out);
+}
+
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+import math
+import matplotlib.pyplot as plt
+
+AB = 5.0
+BC = 6.0
+Bdeg = 60.0
+Brad = math.radians(Bdeg)
+
+# Coordinates: place B at origin and C on +x as in your LaTeX
+Bx, By = 0.0, 0.0
+Cx, Cy = BC, 0.0
+Ax, Ay = AB*math.cos(Brad), AB*math.sin(Brad)  # (2.5, 4.330...)
+
+# Optional: AC to confirm = sqrt(31)
+AC = math.hypot(Ax-Cx, Ay-Cy)
+
+# Plot
+plt.figure(figsize=(5,5))
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    # triangle edges
+plt.plot([Ax, Bx], [Ay, By])  # AB
+plt.plot([Bx, Cx], [By, Cy])  # BC
+plt.plot([Cx, Ax], [Cy, Ay])  # CA
+# points
+plt.scatter([Ax, Bx, Cx], [Ay, By, Cy])
+plt.text(Ax, Ay, f"  A({Ax:.2f},{Ay:.2f})", ha="left", va="bottom")
+plt.text(Bx, By, f"  B({Bx:.2f},{By:.2f})", ha="left", va="top")
+plt.text(Cx, Cy, f"  C({Cx:.2f},{Cy:.2f})", ha="left", va="top")
+
+    \end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+    \frametitle{ Python Code}
+    \begin{lstlisting}
+    plt.title("Triangle ABC (AB=5, BC=6, ∠ABC=60°)")
+plt.axis("equal")
+plt.grid(True)
+plt.xlabel("x")
+plt.ylabel("y")
+plt.tight_layout()
+# Save and/or show
+plt.savefig("triangle_abc.png", dpi=200)
+plt.show()
+print(f"AC ≈ {AC:.4f} (should be sqrt(31) ≈ 5.5678)")
+   
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{callc.py}
+    \begin{lstlisting}    
+import ctypes
+from ctypes import c_double, c_int, byref
+
+lib = ctypes.CDLL("./libtriangle.so")   # adjust path if needed
+
+# void-return (int), args: 11 doubles (3 inputs + 7 outputs)
+lib.triangle_abc.argtypes = [c_double, c_double, c_double,
+                             ctypes.POINTER(c_double), ctypes.POINTER(c_double),
+                             ctypes.POINTER(c_double), ctypes.POINTER(c_double),
+                             ctypes.POINTER(c_double), ctypes.POINTER(c_double),
+                             ctypes.POINTER(c_double)]
+lib.triangle_abc.restype  = c_int
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{callc.py}
+\begin{lstlisting}
+lib.triangle_example.argtypes = [ctypes.POINTER(c_double), ctypes.POINTER(c_double),
+                                 ctypes.POINTER(c_double), ctypes.POINTER(c_double),
+                                 ctypes.POINTER(c_double), ctypes.POINTER(c_double),
+                                 ctypes.POINTER(c_double)]
+lib.triangle_example.restype  = c_int
+
+def run_example():
+    Ax= c_double(); Ay= c_double()
+    Bx= c_double(); By= c_double()
+    Cx= c_double(); Cy= c_double()
+    b = c_double()
+
+    lib.triangle_example(byref(Ax), byref(Ay), byref(Bx), byref(By),
+                         byref(Cx), byref(Cy), byref(b))
+
+\end{lstlisting} 
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{callc.py}
+\begin{lstlisting}
+     print("Example (AB=5, BC=6, ∠B=60°)")
+    print(f"A = ({Ax.value:.2f}, {Ay.value:.2f})")
+    print(f"B = ({Bx.value:.2f}, {By.value:.2f})")
+    print(f"C = ({Cx.value:.2f}, {Cy.value:.2f})")
+    print(f"AC = sqrt(31) ≈ {b.value:.2f}")
+
+def run_general(AB=5.0, BC=6.0, angleB_deg=60.0):
+    Ax= c_double(); Ay= c_double()
+    Bx= c_double(); By= c_double()
+    Cx= c_double(); Cy= c_double()
+    b = c_double()
+
+    lib.triangle_abc(AB, BC, angleB_deg,
+\end{lstlisting}
+\end{frame}
+
+\end{document}
