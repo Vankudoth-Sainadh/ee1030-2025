@@ -1,0 +1,325 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+\title 
+{4.3.51}
+\date{October 1,2025}
+\author 
+{V.Sainadh-EE25BTECH11061}
+\frame{\titlepage}
+\begin{frame}{Question}
+The equation of a line is $3x-4y+10=0$. Find its slope and the $x$ and $y$ intercepts. \\[6pt]
+\end{frame}
+\begin{frame}{Solution}
+Let $\vec{x}=\myvec{x\\y}$. Then
+\begin{align}
+\myvec{3 & -4}\,\vec{x} &= -10 \tag{1}
+\end{align}
+Comparing with $\vec{n}^{T}\vec{x}=c$, we identify
+\begin{align}
+\vec{n}=\myvec{3\\-4}, \qquad c=-10. \tag{2}
+\end{align}
+A direction vector orthogonal to $\vec{n}$ is
+\begin{align}
+\vec{m}=\myvec{4\\3} \quad (\vec{n}^{T}\vec{m}=3\cdot4+(-4)\cdot3=0). \tag{3}
+\end{align}
+  \end{frame}
+  \begin{frame}{Solution}
+  Hence the slope is
+\begin{align}
+\text{slope}=\frac{m_y}{m_x}=\frac{3}{4}. \tag{4}
+\end{align}
+
+\textbf{x-intercept:} points on the $x$-axis have $\vec{x}=\myvec{x\\0}$. Substituting in (1),
+\begin{align}
+\myvec{3 & -4}\myvec{x\\0}=-10 \;\Rightarrow\; 3x=-10 \;\Rightarrow\; x=-\frac{10}{3}. \tag{5}
+\end{align}
+
+\begin{align}
+\text{x-intercept}=\myvec{-\tfrac{10}{3}\\[2pt]0}. \tag{6}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+\textbf{y-intercept:} points on the $y$-axis have $\vec{x}=\myvec{0\\y}$. Substituting in (1),
+\begin{align}
+\myvec{3 & -4}\myvec{0\\y}=-10 \;\Rightarrow\; -4y=-10 \;\Rightarrow\; y=\frac{5}{2}. \tag{7}
+\end{align}
+
+\begin{align}
+\text{y-intercept}=\myvec{0\\[2pt]\tfrac{5}{2}}. \tag{8}
+\end{align}
+\end{frame}
+
+\begin{frame}{Graph}
+\begin{figure}[h!]
+   \centering
+   \includegraphics[width=0.8\columnwidth]{figs/Figure_1.png}
+   \caption{Plot of the line $3x-4y+10=0$}
+   \label{Plot_1}
+\end{figure}
+
+\end{frame}
+
+ 
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}
+#include <math.h>
+
+// ax + by + c = 0  → slope = -a/b (if b ≠ 0)
+// x-intercept = (-c/a, 0) if a ≠ 0
+// y-intercept = (0, -c/b) if b ≠ 0
+int line_params(double a, double b, double c,
+                double* slope, int* slope_defined,
+                double* xint,  int* x_defined,
+                double* yint,  int* y_defined)
+{
+    if (b != 0.0) { *slope = -a/b; *slope_defined = 1; }
+    else          { *slope = NAN;  *slope_defined = 0; }
+
+    if (a != 0.0) { *xint = -c/a;  *x_defined = 1; }
+    else          { *xint = NAN;   *x_defined = 0; }
+
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+    
+   
+    if (b != 0.0) { *yint = -c/b;  *y_defined = 1; }
+    else          { *yint = NAN;   *y_defined = 0; }
+
+    return 0;
+}
+
+// Convenience: for 3x - 4y + 10 = 0
+int example_3m4p10(double* slope, int* slope_defined,
+                   double* xint,  int* x_defined,
+                   double* yint,  int* y_defined)
+{
+    return line_params(3.0, -4.0, 10.0,
+                       slope, slope_defined,
+                       xint,  x_defined,
+                       yint,  y_defined);
+}
+
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Line: 3x - 4y + 10 = 0  →  y = (3/4)x + 10/4
+a, b, c = 3.0, -4.0, 10.0
+
+# Compute intercepts (if defined)
+x_int = -c/a if a != 0 else None   # (-10/3, 0)
+y_int = -c/b if b != 0 else None   # (0,  2.5)
+
+# Choose a plotting window around intercepts
+xs = np.linspace(-10, 10, 400)
+if b != 0:
+    ys = (-a*xs - c) / b
+else:
+    # vertical line x = -c/a
+    xs = np.full_like(xs, -c/a)
+    ys = np.linspace(-10, 10, 400)
+
+plt.figure(figsize=(6, 6))
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+   # Plot the line
+plt.plot(xs, ys, linewidth=2)
+plt.title("3x - 4y + 10 = 0")
+
+# Axes crosshairs
+plt.axhline(0, linewidth=1)
+plt.axvline(0, linewidth=1)
+
+# Mark intercepts if present
+if x_int is not None:
+    plt.scatter([x_int], [0], s=40)
+    plt.text(x_int, 0, f"  x-int=({x_int:.2f}, 0)", va="bottom")
+
+
+    \end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+    \frametitle{ Python Code}
+    \begin{lstlisting}
+   if y_int is not None:
+    plt.scatter([0], [y_int], s=40)
+    plt.text(0, y_int, f"  y-int=(0, {y_int:.2f})", va="bottom")
+
+plt.xlabel("x")
+plt.ylabel("y")
+plt.axis("equal")
+plt.grid(True)
+plt.tight_layout()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{callc.py}
+    \begin{lstlisting}    
+import ctypes
+from ctypes import c_double, c_int, byref
+
+# Adjust name for macOS if needed: "./liblinegeom.dylib"
+lib = ctypes.CDLL("./liblinegeom.so")
+
+lib.line_params.argtypes = [c_double, c_double, c_double,
+                            ctypes.POINTER(c_double), ctypes.POINTER(c_int),
+                            ctypes.POINTER(c_double), ctypes.POINTER(c_int),
+                            ctypes.POINTER(c_double), ctypes.POINTER(c_int)]
+lib.line_params.restype  = c_int
+
+
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{callc.py}
+\begin{lstlisting}
+lib.example_3m4p10.argtypes = [ctypes.POINTER(c_double), ctypes.POINTER(c_int),
+                               ctypes.POINTER(c_double), ctypes.POINTER(c_int),
+                               ctypes.POINTER(c_double), ctypes.POINTER(c_int)]
+lib.example_3m4p10.restype  = c_int
+def run_example():
+    slope = c_double(); slope_def = c_int()
+    xint  = c_double(); x_def     = c_int()
+    yint  = c_double(); y_def     = c_int()
+
+    lib.example_3m4p10(byref(slope), byref(slope_def),
+                       byref(xint),  byref(x_def),
+                       byref(yint),  byref(y_def))
+\end{lstlisting} 
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{callc.py}
+\begin{lstlisting}
+    print("Line: 3x - 4y + 10 = 0")
+    if slope_def.value: print(f"Slope m = {slope.value:.6g}")
+    if x_def.value:     print(f"x-intercept = ({xint.value:.6g}, 0)")
+    if y_def.value:     print(f"y-intercept = (0, {yint.value:.6g})")
+
+def run_general(a, b, c):
+    slope = c_double(); slope_def = c_int()
+    xint  = c_double(); x_def     = c_int()
+    yint  = c_double(); y_def     = c_int()
+
+    lib.line_params(a, b, c,
+                    byref(slope), byref(slope_def),
+                    byref(xint),  byref(x_def),
+                    byref(yint),  byref(y_def))
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{callc.py}
+\begin{lstlisting}
+ print(f"Line: {a}x + {b}y + {c} = 0")
+    if slope_def.value: print(f"Slope m = {slope.value:.6g}")
+    else:               print("Slope undefined (vertical line)")
+    if x_def.value:     print(f"x-intercept = ({xint.value:.6g}, 0)")
+    else:               print("No finite x-intercept (a = 0)")
+    if y_def.value:     print(f"y-intercept = (0, {yint.value:.6g})")
+    else:               print("No finite y-intercept (b = 0)")
+
+if __name__ == "__main__":
+    run_example()
+    # run_general(3.0, -4.0, 10.0)
+
+
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,108 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a4paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern}
+\usepackage{tfrupee}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\def\inputGnumericTable{}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{ifthen}
+\usepackage{lscape}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{4.3.51}
+\author{EE25BTECH11061 - V.Sainadh}
+
+\maketitle
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt}
+
+{\Large
+\textbf{Question:} The equation of a line is $3x-4y+10=0$. Find its slope and the $x$ and $y$ intercepts. \\[6pt]
+
+\textbf{Solution:} Let $\vec{x}=\myvec{x\\y}$. Then
+\begin{align}
+\myvec{3 & -4}\,\vec{x} &= -10 \tag{1}
+\end{align}
+Comparing with $\vec{n}^{T}\vec{x}=c$, we identify
+\begin{align}
+\vec{n}=\myvec{3\\-4}, \qquad c=-10. \tag{2}
+\end{align}
+A direction vector orthogonal to $\vec{n}$ is
+\begin{align}
+\vec{m}=\myvec{4\\3} \quad (\vec{n}^{T}\vec{m}=3\cdot4+(-4)\cdot3=0). \tag{3}
+\end{align}
+Hence the slope is
+\begin{align}
+\text{slope}=\frac{m_y}{m_x}=\frac{3}{4}. \tag{4}
+\end{align}
+
+\textbf{x-intercept:} points on the $x$-axis have $\vec{x}=\myvec{x\\0}$. Substituting in (1),
+\begin{align}
+\myvec{3 & -4}\myvec{x\\0}=-10 \;\Rightarrow\; 3x=-10 \;\Rightarrow\; x=-\frac{10}{3}. \tag{5}
+\end{align}
+
+\begin{align}
+\text{x-intercept}=\myvec{-\tfrac{10}{3}\\[2pt]0}. \tag{6}
+\end{align}
+
+\textbf{y-intercept:} points on the $y$-axis have $\vec{x}=\myvec{0\\y}$. Substituting in (1),
+\begin{align}
+\myvec{3 & -4}\myvec{0\\y}=-10 \;\Rightarrow\; -4y=-10 \;\Rightarrow\; y=\frac{5}{2}. \tag{7}
+\end{align}
+
+\begin{align}
+\text{y-intercept}=\myvec{0\\[2pt]\tfrac{5}{2}}. \tag{8}
+\end{align}
+} % end Large
+\newpage
+\textbf{Graph:}
+
+\begin{figure}[h!]
+   \centering
+   \includegraphics[width=0.8\columnwidth]{figs/Figure_1.png}
+   \caption{Plot of the line $3x-4y+10=0$}
+   \label{Plot_1}
+\end{figure}
+
+\end{document}
+
+
+
+
