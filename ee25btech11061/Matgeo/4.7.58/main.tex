@@ -1,0 +1,103 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a4paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern}
+\usepackage{tfrupee}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\def\inputGnumericTable{}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{ifthen}
+\usepackage{lscape}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{4.7.58}
+\author{EE25BTECH11061 - V.Sainadh}
+
+\maketitle
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt}
+
+{\Large
+\textbf{Question:} Find the distance between the parallel lines $3x-4y+7=0$ and $3x-4y+5=0$.\\[8pt]
+
+\textbf{Solution:} Let
+\begin{align}
+\vec{x} = \myvec{x\\y} \tag{1}
+\end{align}
+
+The given lines can be expressed in matrix form as
+\begin{align}
+\myvec{3 & -4}\vec{x} &= -7 \quad \text{and} \quad \myvec{3 & -4}\vec{x} = -5 \tag{2}
+\end{align}
+
+Here, the normal vector is
+\begin{align}
+\vec{n} = \myvec{3\\-4}, \quad c_1=-7, \quad c_2=-5 \tag{3}
+\end{align}
+
+The distance between two parallel lines is
+\begin{align}
+d = \frac{|c_1-c_2|}{\|\vec{n}\|} \tag{4}
+\end{align}
+
+
+\begin{align}
+\|\vec{n}\| &= \sqrt{3^2+(-4)^2} = \sqrt{9+16} = 5 \tag{5}\\
+|c_1-c_2| &= |-7-(-5)| = |-2| = 2 \tag{6}
+\end{align}
+
+Therefore,
+\begin{align}
+d = \frac{2}{5} \tag{7}
+\end{align}
+
+
+}
+\enlargethispage{2\baselineskip}   
+
+\begin{samepage}                  
+
+
+\begin{center}
+  \includegraphics[width=0.60\linewidth]{figs/Figure_1.png}   
+  \captionof{figure}{Distance between two Parallel Lines}
+  \label{Plot_1}
+\end{center}
+\end{samepage}
+\end{document}
