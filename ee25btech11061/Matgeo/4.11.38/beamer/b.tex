@@ -1,0 +1,301 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+\title 
+{4.11.38}
+\date{October 2,2025}
+\author 
+{V.Sainadh-EE25BTECH11061}
+\frame{\titlepage}
+\begin{frame}{Question}
+Find the area of the region bounded by the lines $y=2x+1$, $y=3x+1$ and $x=4$. \\
+\end{frame}
+\begin{frame}{Solution}
+Given three lines are
+\begin{align}
+\myvec{-2 & 1}\myvec{x\\y} = 1 \Longrightarrow \vec{n}^\top\vec{x} = 1 \tag{1}
+\end{align}
+\begin{align}
+\myvec{-3 & 1}\myvec{x\\y} = 1 \Longrightarrow \vec{m}^\top\vec{x} = 1 \tag{2}
+\end{align}
+\begin{align}
+\myvec{1 & 0}\myvec{x\\y} = 4 \Longrightarrow \vec{p}^\top\vec{x} = 4 \tag{3}
+\end{align}
+  \end{frame}
+  \begin{frame}{Solution}
+  The three lines form a triangle.  
+The vertices of triangle are obtained by 
+
+\textbf{Intersection of : (1) and (3)}
+\begin{align}
+\myvec{-2 & 1 &\vrule& 1\\
+1 & 0 &\vrule& 4} \xrightarrow{R_1 \longrightarrow R_1+2R_2}
+\myvec{0 & 1 &\vrule& 9\\
+1 & 0 &\vrule& 4}
+\end{align}
+From the second row we get $y=9$ so $x=4 \Longrightarrow
+\vec{A} = \myvec{4\\9}$
+\end{frame}
+
+\begin{frame}{Solution}
+\textbf{Intersection of : (2) and (3)}
+\begin{align}
+\myvec{-3 & 1 &\vrule& 1\\
+1 & 0 &\vrule& 4} \xrightarrow{R_1 \longrightarrow R_1+3R_2}
+\myvec{0 & 1 &\vrule& 13\\
+1 & 0 &\vrule& 4}
+\end{align}
+From the second row we get $y=13$ so $x=4 \Longrightarrow
+\vec{B} = \myvec{4\\13}$
+
+\textbf{Intersection of : (1) and (2)}
+\begin{align}
+\myvec{-2 & 1 &\vrule& 1\\
+-3 & 1 &\vrule& 1} \xrightarrow{R_2 \longrightarrow R_2-R_1}
+\myvec{-2 & 1 &\vrule& 1\\
+-1 & 0 &\vrule& 0}
+\end{align}
+From the second row we get $x=0$ so $y=1 \Longrightarrow
+\vec{C} = \myvec{0\\1}$
+
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+\vec{A}-\vec{B} = \myvec{0\\-4}, \quad \vec{A}-\vec{C} = \myvec{4\\8}   
+\end{align}
+\begin{align}
+\norm{(\vec{A}-\vec{B})\times(\vec{A}-\vec{C})} 
+= \absdet{\myvec{0 & -4\\ 4 & 8}} = |0-(-16)| = 16
+\end{align}
+
+\begin{align}
+Area \ of \ the \ triangle 
+= \frac{1}{2}{\norm{(\vec{A}-\vec{B})\times(\vec{A}-\vec{C})}}
+= \frac{16}{2} = 8
+\end{align}
+
+
+Area of the triangle formed by the lines $y=2x+1$, $y=3x+1$ and $x=4$ is $8$ square units.
+
+
+\end{frame}
+
+\begin{frame}{Graph}
+\begin{figure}[h!]
+   \centering
+   \includegraphics[width=0.8\columnwidth]{figs/Figure_1.png}
+   \caption{Representation of a Triangle}
+   \label{Plot_1}
+\end{figure}
+
+\end{frame}
+
+ 
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}
+#include <math.h>
+
+static void intersect(double a1,double b1,double c1,
+                      double a2,double b2,double c2,
+                      double *x,double *y)
+{
+    double D = a1*b2 - a2*b1;
+    *x = (b1*(-c2) - b2*(-c1)) / D;
+    *y = (a2*(-c1) - a1*(-c2)) / D;
+}
+
+// Problem: y=2x+1, y=3x+1, x=4
+// In ax+by+c=0 form: -2x + y -1 = 0 ; -3x + y -1 = 0 ; 1x + 0y -4 = 0
+double triangle_area_example(void)
+
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+      {
+    double x1,y1,x2,y2,x3,y3;
+
+    // L1 & L2
+    intersect(-2, 1, -1,  -3, 1, -1,  &x1,&y1);
+    // L2 & L3
+    intersect(-3, 1, -1,   1, 0, -4,  &x2,&y2);
+    // L3 & L1
+    intersect( 1, 0, -4,  -2, 1, -1,  &x3,&y3);
+
+    // Area = 1/2 * |det([B-A, C-A])|
+    double ABx = x2 - x1, ABy = y2 - y1;
+    double ACx = x3 - x1, ACy = y3 - y1;
+    double area = 0.5 * fabs(ABx*ACy - ABy*ACx);
+    return area;
+}
+
+
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+
+def intersection(a1,b1,c1, a2,b2,c2):
+    A = np.array([[a1,b1],[a2,b2]], dtype=float)
+    B = np.array([-c1,-c2], dtype=float)
+    x, y = np.linalg.solve(A, B)
+    return np.array([x, y])
+
+L1 = (-2, 1, -1)
+L2 = (-3, 1, -1)
+L3 = (1, 0, -4)
+
+A = intersection(*L1, *L2)
+B = intersection(*L2, *L3)
+C = intersection(*L1, *L3)
+V = np.vstack([A,B,C])
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    x1,y1 = A; x2,y2 = B; x3,y3 = C
+area = 0.5*abs(x1*(y2-y3)+x2*(y3-y1)+x3*(y1-y2))
+print("Area of the triangle =", area)
+xs = np.linspace(min(V[:,0])-1, max(V[:,0])+1, 400)
+
+plt.figure(figsize=(6,6))
+plt.plot(xs, 2*xs + 1, color="blue")
+plt.plot(xs, 3*xs + 1, color="green")
+plt.axvline(4, color="red")
+plt.fill([x1,x2,x3],[y1,y2,y3], color="lightblue", alpha=0.5)
+
+
+    \end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+    \frametitle{ Python Code}
+    \begin{lstlisting}
+   
+for name, P in zip(["A","B","C"], V):
+    plt.scatter(P[0], P[1], color="black")
+    plt.text(P[0], P[1], f"{name}({P[0]:.1f},{P[1]:.1f})")
+
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Triangle formed by y=2x+1, y=3x+1, x=4")
+plt.grid(True)
+plt.axis("equal")
+
+os.makedirs("figs", exist_ok=True)
+plt.savefig("figs/triangle.png", dpi=200)
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{callc.py}
+    \begin{lstlisting}    
+import ctypes
+from ctypes import c_double
+import os, sys
+
+# Pick correct lib name
+libname = "libsimple_triarea.dylib" if sys.platform == "darwin" else "libsimple_triarea.so"
+lib = ctypes.CDLL(os.path.abspath(libname))
+
+# C function: double triangle_area_example(void)
+lib.triangle_area_example.restype = c_double
+
+area = lib.triangle_area_example()
+print(f"Area of the triangle (y=2x+1, y=3x+1, x=4) = {area}")
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+\end{document}
